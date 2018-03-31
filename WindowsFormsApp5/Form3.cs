@@ -20,25 +20,39 @@ namespace WindowsFormsApp5
 
         private void button1_Click(object sender, EventArgs e)
         {
-            cmdXML cx = new cmdXML();
-            //判断编辑框有无做出改变           
+            //判断输入数据是否正常
+            if (textBox1.Text == "" && textBox2.Text == "" && textBox3.Text == "" && textBox4.Text == "")
+            {
+                MessageBox.Show("信息不完善");
+                return;
+            }
+            try
+            {
+                float.Parse(textBox3.Text);
+                float.Parse(textBox4.Text);
+            }
+            catch
+            {
+                MessageBox.Show("价格必须是一个数字");
+                return;
+            }
             //将添加的值加入xml文件中
-            //添加记录
-            string[] str1 = { textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text, textBox5.Text, System.DateTime.Now.ToString("yyyyMMddHHmmssfff") };
-
+            cmdXML cx = new cmdXML(); 
+            string[] str1 = { textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text, textBox5.Text, stf.date };
             storeFur stf_l = new storeFur(str1);
-            cx.updateSingleNode("mainStore.xml", "/store", stf.date, stf_l);
+            cx.updateSingleNode("mainStore.xml", "store", stf.date, stf_l);
           
+
             //告诉主对话框刷新datagridview
             Form1 fm1 = (Form1)this.Owner;
-            fm1.formRefresh();
+            fm1.formRefresh("mainStore.xml", "store");
             //关闭对话框
             this.Close();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-
+            this.Close();
         }
 
         private void textBox5_TextChanged(object sender, EventArgs e)
@@ -102,7 +116,10 @@ namespace WindowsFormsApp5
             textBox2.Text = stf.number;
             textBox3.Text = stf.inprice;
             textBox4.Text = stf.onprice;
-            textBox5.Text = stf.outprice;
+            
+
+            textBox5.Text = "不可用";
+            textBox5.ReadOnly = true;
         }
     }
 }

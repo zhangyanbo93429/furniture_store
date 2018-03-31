@@ -24,8 +24,11 @@ namespace WindowsFormsApp5
             //并打开一个xml文件，如不存在，则创建之
             xh = new XmlHelper();
             cx = new cmdXML();
-            string pathname = "mainStore.xml";
-            xh.CreateXML(pathname);
+           
+            cx.CreateXMLDoc("mainStore.xml","store");
+            cx.CreateXMLDoc("jinHuo.xml","inhere");
+            cx.CreateXMLDoc("chuHuo.xml","outhere");
+            cx.CreateXMLDoc("chaXun.xml","result");
             //以十条为单位，查询其内容并显示在dataGridView1上
             this.dataGridView1.Columns.Add(@"variety",@"品种");
             this.dataGridView1.Columns.Add(@"number", @"型号");
@@ -38,7 +41,7 @@ namespace WindowsFormsApp5
 
 
             //refresh
-            formRefresh();
+            formRefresh("mainStore.xml", "store");
             
 
 
@@ -48,6 +51,7 @@ namespace WindowsFormsApp5
         {
             //datagridview自适应
             dataGridView1.AutoResizeColumns();
+            
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -63,21 +67,24 @@ namespace WindowsFormsApp5
                 {
                     if (dataGridView1.SelectedRows[0].Cells[5].Value != null)
                     {
-                        string str_s = dataGridView1.SelectedRows[i].Cells[5].Value.ToString();
-                        cx.deleteSingleNode("mainStore.xml", "/store", str_s);
+                        string[] str_ss = { dataGridView1.SelectedRows[i].Cells[0].Value.ToString(), dataGridView1.SelectedRows[i].Cells[1].Value.ToString(), dataGridView1.SelectedRows[i].Cells[2].Value.ToString(), dataGridView1.SelectedRows[i].Cells[3].Value.ToString(), dataGridView1.SelectedRows[i].Cells[4].Value.ToString(), dataGridView1.SelectedRows[i].Cells[5].Value.ToString() };
+                        Form5 myform = new Form5();
+                        myform.stf = new storeFur(str_ss);
+                        myform.ShowDialog(this);
+
                     }
                 }
             }
-            this.formRefresh();
+
         }
-       
-       
+
+
         //将数据库中的数据刷新到datagridview上
-        public void formRefresh()
+        public void formRefresh(string xmlName,string rootName)
         {
             
             //通过mainstore.xml刷新datagridview的值
-            ArrayList al = cx.searchAllNode("mainStore.xml", "/store");
+            ArrayList al = cx.searchAllNode(xmlName, rootName);
            
             dataGridView1.Rows.Clear();
             if (al.Count > 0)
@@ -156,7 +163,7 @@ namespace WindowsFormsApp5
             FileStream fs = new FileStream(str1, FileMode.OpenOrCreate);
             StreamWriter sw = new StreamWriter(fs);
 
-            ArrayList al = cx.searchAllNode("mainStore.xml", "/store");
+            ArrayList al = cx.searchAllNode("mainStore.xml", "store");
 
             
             if (al.Count > 0)
@@ -177,6 +184,31 @@ namespace WindowsFormsApp5
         {
             Form4 form = new Form4();
             form.ShowDialog(this);
+        }
+
+        private void 使用帮助ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void 当前库存ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            formRefresh("mainStore.xml", "store");
+        }
+
+        private void 进货记录ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            formRefresh("jinHuo.xml","inhere");
+        }
+
+        private void 出货记录ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            formRefresh("chuHuo.xml", "outhere");
+        }
+        public void noResultWarning()
+        {
+            dataGridView1.Rows.Clear();
+            MessageBox.Show("无匹配结果");
         }
     }
 }

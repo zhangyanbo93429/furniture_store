@@ -38,7 +38,7 @@ namespace WindowsFormsApp5
 
         private void button2_Click(object sender, EventArgs e)
         {
-
+            this.Close();
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
@@ -103,6 +103,24 @@ namespace WindowsFormsApp5
 
         private void button1_Click(object sender, EventArgs e)
         {
+
+            try
+            {
+                float.Parse(textBox3.Text);
+                float.Parse(textBox4.Text);
+                float.Parse(textBox5.Text);
+
+                float.Parse(textBox3_1.Text);
+                float.Parse(textBox4_1.Text);
+                float.Parse(textBox5_1.Text);
+
+            }
+            catch
+            {
+                MessageBox.Show("价格必须是一个数字");
+                return;
+            }
+
             //得到匹配字符串
             string[] str_pipei = new string[8];
             if (checkBox1.Checked == true)
@@ -142,7 +160,7 @@ namespace WindowsFormsApp5
             //取得xml中的值,进行匹配
             {
                 cmdXML cx = new cmdXML();
-                ArrayList al = cx.searchAllNode("mainStore.xml", "/store");
+                ArrayList al = cx.searchAllNode("mainStore.xml", "store");
                 if (al.Count > 0)
                 {
                     int i = 0;
@@ -161,15 +179,15 @@ namespace WindowsFormsApp5
 
                 }
             
-            //书写匹配结果xml，如无结果,令第一个element.variety = noresult
+            //书写匹配结果xml,如无结果，祝对话框datagridview清空，且弹出消息框
             
                 cmdXML cx1 = new cmdXML();
-                cx1.CreateXMLDoc("form4.xml", "result");
+                
                 if (al.Count == 0)
                 {
-                    storeFur stf = new storeFur();
-                    stf.variety = "noresult";
-                    cx1.AddFurElement("form4.xml", stf, "result");
+                    //告诉主对话框进行刷新
+                    Form1 f1 = (Form1)this.Owner;
+                    f1.noResultWarning();
                 }
                 else
                 {
@@ -177,12 +195,23 @@ namespace WindowsFormsApp5
                     {
                         storeFur stf1 = new storeFur();
                         stf1 = al[i] as storeFur;
-                        cx1.AddFurElement("form4.xml", stf1, "result");
+                        cx1.AddFurElement("chaXun.xml", stf1, "result");
+                    }
+                    {
+                        //告诉主对话框进行刷新
+                        Form1 f1 = (Form1)this.Owner;
+                        f1.formRefresh("chaXun.xml", "result");
+                        
+                        
                     }
                 }
-               
+                {
+                    cmdXML cx2 = new cmdXML();
+                    cx2.deleteAllNode("chaXun.xml", "result");
+                    this.Close();
+                }
             }
-
+            
         }
         //查询定义匹配函数
         public bool pipeiStore(storeFur stf, string[] str)

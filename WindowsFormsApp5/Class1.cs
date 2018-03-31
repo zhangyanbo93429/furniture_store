@@ -185,15 +185,21 @@ namespace PuTianCheng
         /// <param name="rootNodename">根节点名字</param>
         public void CreateXMLDoc(string xmlFilePath, string rootNodename)
         {
-            //初始化一个xml实例
             XmlDocument myXmlDoc = new XmlDocument();
-            //<?xml version="1.0" encoding="UTF-8"?>
-            myXmlDoc.AppendChild(myXmlDoc.CreateXmlDeclaration("1.0", "UTF-8", null));
-            //创建xml的根节点
-            XmlElement rootElement = myXmlDoc.CreateElement(rootNodename);
-            //将根节点加入到xml文件中（AppendChild）
-            myXmlDoc.AppendChild(rootElement);
-            myXmlDoc.Save(xmlFilePath);
+            try
+            {
+                myXmlDoc.Load(xmlFilePath);
+            }
+            catch
+            {
+                XmlDocument xmlDoc = new XmlDocument();
+                XmlDeclaration xdDec = xmlDoc.CreateXmlDeclaration("1.0", "utf-8", null);
+                XmlElement xeRoot = xmlDoc.CreateElement(rootNodename);
+                xmlDoc.AppendChild(xdDec);
+                xmlDoc.AppendChild(xeRoot);
+                xmlDoc.Save(xmlFilePath);
+                
+            }
         }
         /// <summary>
         /// 增加节点属性
@@ -202,6 +208,7 @@ namespace PuTianCheng
         /// <param name="stf">家具类</param>
         public void AddFurElement(string xmlFilePath,storeFur stf,string rootNodeName)
         {
+            
             XmlDocument myXmlDoc = new XmlDocument();
             myXmlDoc.Load(xmlFilePath);
             XmlNode memberlist = myXmlDoc.SelectSingleNode(rootNodeName);
@@ -252,6 +259,16 @@ namespace PuTianCheng
                 al.Add(stf);
             }
             return al;
+        }
+        //删除rootNodeName下所有节点
+        public void deleteAllNode(string xmlFilePath, string rootNodeName)
+        {
+            XmlDocument xd = new XmlDocument();
+            xd.Load(xmlFilePath);
+            XmlNode xn = xd.SelectSingleNode(rootNodeName);
+            xn.RemoveAll();
+            xd.Save(xmlFilePath);
+                
         }
         //搜索某一date属性的节点
         public storeFur searchSingleNode(string xmlFilePath, string rootNodeName,string str_single)
