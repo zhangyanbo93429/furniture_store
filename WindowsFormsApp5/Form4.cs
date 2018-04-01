@@ -34,6 +34,8 @@ namespace WindowsFormsApp5
             textBox3.ReadOnly = true; textBox3_1.ReadOnly = true;
             textBox4.ReadOnly = true; textBox4_1.ReadOnly = true;
             textBox5.ReadOnly = true; textBox5_1.ReadOnly = true;
+
+            comboBox1.Text = "库存状况";
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -160,7 +162,23 @@ namespace WindowsFormsApp5
             //取得xml中的值,进行匹配
             {
                 cmdXML cx = new cmdXML();
-                ArrayList al = cx.searchAllNode("mainStore.xml", "store");
+                ArrayList al;
+                switch (comboBox1.Text)
+                {
+                    case "库存状况":
+                        al = cx.searchAllNode("mainStore.xml", "store");
+                        break;
+                    case "进货记录":
+                        al = cx.searchAllNode("jinHuo.xml", "inhere");
+                        break;
+                    case "出货记录":
+                        al = cx.searchAllNode("chuHuo.xml", "outhere");
+                        break;
+                    default:
+                        al = new ArrayList();
+                        break;
+                }
+                
                 if (al.Count > 0)
                 {
                     int i = 0;
@@ -179,7 +197,7 @@ namespace WindowsFormsApp5
 
                 }
             
-            //书写匹配结果xml,如无结果，祝对话框datagridview清空，且弹出消息框
+            //书写匹配结果xml,如无结果，主对话框datagridview清空，且弹出消息框
             
                 cmdXML cx1 = new cmdXML();
                 
@@ -237,6 +255,11 @@ namespace WindowsFormsApp5
             {
                 return false;
             }
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

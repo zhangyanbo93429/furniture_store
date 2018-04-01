@@ -70,7 +70,7 @@
             this.textBox5.Location = new System.Drawing.Point(148, 179);
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(100, 21);
-            this.textBox5.TabIndex = 1;
+            this.textBox5.TabIndex = 60;
             // 
             // textBox4
             // 
@@ -158,7 +158,7 @@
             this.textBox6.Location = new System.Drawing.Point(148, 221);
             this.textBox6.Name = "textBox6";
             this.textBox6.Size = new System.Drawing.Size(100, 21);
-            this.textBox6.TabIndex = 40;
+            this.textBox6.TabIndex = 36;
             // 
             // label7
             // 

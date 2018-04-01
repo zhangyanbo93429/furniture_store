@@ -388,13 +388,14 @@ namespace PuTianCheng
                     if (temperDX > 0)
                     {
                         stf.shumu = temperDX;
+                        stf.outprice = "不可用";
                         updateSingleNode(xmlFilePath, "store", xxn.ChildNodes[5].InnerText, stf);
                         return Convert.ToString(temperDX);
                     }
                     else if (temperDX == 0)
                     {
                         stf.shumu = temperDX;
-                        updateSingleNode(xmlFilePath, "store", xxn.ChildNodes[5].InnerText, stf);
+                        //updateSingleNode(xmlFilePath, "store", xxn.ChildNodes[5].InnerText, stf);
                         deleteSingleNode(xmlFilePath, "store", xxn.ChildNodes[5].InnerText);
                         return "succeedbut0";
                     }
@@ -850,6 +851,17 @@ namespace PuTianCheng
             value[5] = date;
             value[6] = Convert.ToString(shumu);
             return value;
+
+        }
+        public void ziBuqi()
+        {
+            
+            variety = variety.PadRight(8);
+            number = number.PadRight(8);
+            inprice = inprice.PadRight(8);
+            onprice = onprice.PadRight(8);
+            outprice = outprice.PadRight(8);
+           
 
         }
         public

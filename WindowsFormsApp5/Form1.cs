@@ -40,7 +40,7 @@ namespace WindowsFormsApp5
             this.dataGridView1.Columns.Add(@"shumu", @"数目");
             //不允许用户编辑datagridview中的数据
             this.dataGridView1.ReadOnly = true;
-
+           
 
             //refresh
             formRefresh("mainStore.xml", "store");
@@ -67,6 +67,7 @@ namespace WindowsFormsApp5
 
             button1.Visible = false;
             button1.Visible = false;
+            
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -105,7 +106,7 @@ namespace WindowsFormsApp5
             if (al.Count > 0)
             {
                 dataGridView1.Rows.Add(al.Count);
-                for (int i = 0; i < al.Count; i++)
+                for (int i = al.Count-1; i >=0; i--)
                 {
                     storeFur stf1 = new storeFur();
                     stf1 = al[i] as storeFur;
@@ -206,7 +207,8 @@ namespace WindowsFormsApp5
                 {
                     storeFur stf1 = new storeFur();
                     stf1 = al[i] as storeFur;
-                    sw.WriteLine(stf1.variety+" "+stf1.number+" "+stf1.inprice+" "+stf1.onprice+" "+stf1.outprice+" "+stf1.date);
+                    stf1.ziBuqi();
+                    sw.WriteLine(stf1.variety+stf1.number+stf1.inprice+stf1.onprice+stf1.outprice+stf1.date+" "+stf1.shumu);
                  
                 }
             }
@@ -271,12 +273,75 @@ namespace WindowsFormsApp5
 
         private void 导入txtToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            button3_Click(sender, e);
+            
+
         }
 
         private void 导出txtToolStripMenuItem_Click(object sender, EventArgs e)
         {
             button6_Click(sender, e);
+        }
+
+        private void 进货状况导出txtToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //选择导出文件路径及名称
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "报表类型|*.txt";
+            sfd.DefaultExt = "txt";
+            sfd.ShowDialog();
+            string str1 = sfd.FileName;
+
+            //利用FileWriter写入txt
+            FileStream fs = new FileStream(str1, FileMode.OpenOrCreate);
+            StreamWriter sw = new StreamWriter(fs);
+
+            ArrayList al = cx.searchAllNode("jinHuo.xml", "inhere");
+
+
+            if (al.Count > 0)
+            {
+
+                for (int i = 0; i < al.Count; i++)
+                {
+                    storeFur stf1 = new storeFur();
+                    stf1 = al[i] as storeFur;
+                    stf1.ziBuqi();
+                    sw.WriteLine(stf1.variety + stf1.number + stf1.inprice + stf1.onprice + stf1.outprice + stf1.date + " " + stf1.shumu);
+
+                }
+            }
+            sw.Close();
+        }
+
+        private void 导出txt出货状况ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //选择导出文件路径及名称
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "报表类型|*.txt";
+            sfd.DefaultExt = "txt";
+            sfd.ShowDialog();
+            string str1 = sfd.FileName;
+
+            //利用FileWriter写入txt
+            FileStream fs = new FileStream(str1, FileMode.OpenOrCreate);
+            StreamWriter sw = new StreamWriter(fs);
+
+            ArrayList al = cx.searchAllNode("chuHuo.xml", "outhere");
+
+
+            if (al.Count > 0)
+            {
+
+                for (int i = 0; i < al.Count; i++)
+                {
+                    storeFur stf1 = new storeFur();
+                    stf1 = al[i] as storeFur;
+                    stf1.ziBuqi();
+                    sw.WriteLine(stf1.variety + stf1.number + stf1.inprice + stf1.onprice + stf1.outprice + stf1.date + " " + stf1.shumu);
+
+                }
+            }
+            sw.Close();
         }
     }
 }
