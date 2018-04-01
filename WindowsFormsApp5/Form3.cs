@@ -13,6 +13,7 @@ namespace WindowsFormsApp5
     public partial class Form3 : Form
     {
         public storeFur stf;
+        public string targetXML;
         public Form3()
         {
             InitializeComponent();
@@ -21,7 +22,7 @@ namespace WindowsFormsApp5
         private void button1_Click(object sender, EventArgs e)
         {
             //判断输入数据是否正常
-            if (textBox1.Text == "" && textBox2.Text == "" && textBox3.Text == "" && textBox4.Text == "")
+            if (textBox1.Text == "" && textBox2.Text == "" && textBox3.Text == "" && textBox4.Text == ""&& textBox5.Text == ""&& textBox6.Text == "")
             {
                 MessageBox.Show("信息不完善");
                 return;
@@ -36,16 +37,40 @@ namespace WindowsFormsApp5
                 MessageBox.Show("价格必须是一个数字");
                 return;
             }
+            if (targetXML == "出货记录")
+            {
+                try
+                {
+                    float.Parse(textBox5.Text);  
+                }
+                catch
+                {
+                    MessageBox.Show("价格必须是一个数字");
+                    return;
+                }
+            }
             //将添加的值加入xml文件中
             cmdXML cx = new cmdXML(); 
-            string[] str1 = { textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text, textBox5.Text, stf.date };
+            string[] str1 = { textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text, textBox5.Text, stf.date,textBox6.Text };
             storeFur stf_l = new storeFur(str1);
-            cx.updateSingleNode("mainStore.xml", "store", stf.date, stf_l);
-          
-
             //告诉主对话框刷新datagridview
             Form1 fm1 = (Form1)this.Owner;
-            fm1.formRefresh("mainStore.xml", "store");
+            switch (targetXML)
+            {
+                case "库存状况":
+                    cx.updateSingleNode("mainStore.xml", "store", stf.date, stf_l);
+                    fm1.formRefresh("mainStore.xml", "store");
+                    break;
+                case "进货记录":
+                    cx.updateSingleNode("jinHuo.xml", "inhere", stf.date, stf_l);
+                    fm1.formRefresh("jinHuo.xml", "inhere");
+                    break;
+                case "出货记录":
+                    cx.updateSingleNode("chuHuo.xml", "outhere", stf.date, stf_l);
+                    fm1.formRefresh("chuHuo.xml", "outhere");
+                    break;
+                
+            }         
             //关闭对话框
             this.Close();
         }
@@ -116,10 +141,8 @@ namespace WindowsFormsApp5
             textBox2.Text = stf.number;
             textBox3.Text = stf.inprice;
             textBox4.Text = stf.onprice;
-            
-
-            textBox5.Text = "不可用";
-            textBox5.ReadOnly = true;
+            textBox5.Text = stf.outprice;
+            textBox6.Text = Convert.ToString(stf.shumu);
         }
     }
 }

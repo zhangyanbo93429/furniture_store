@@ -240,7 +240,9 @@ namespace PuTianCheng
             element.InnerText = stf.date;
             subnode.AppendChild(element);
 
-            
+            element = myXmlDoc.CreateElement("shumu");
+            element.InnerText = Convert.ToString(stf.shumu);
+            subnode.AppendChild(element);
             myXmlDoc.Save(xmlFilePath);
         }
 
@@ -254,8 +256,9 @@ namespace PuTianCheng
             XmlNodeList xl = xn.ChildNodes;
             foreach(XmlNode xxn in xl)
             {
-                string[] str ={ xxn.ChildNodes[0].InnerText, xxn.ChildNodes[1].InnerText, xxn.ChildNodes[2].InnerText, xxn.ChildNodes[3].InnerText, xxn.ChildNodes[4].InnerText, xxn.ChildNodes[5].InnerText };
+                string[] str ={ xxn.ChildNodes[0].InnerText, xxn.ChildNodes[1].InnerText, xxn.ChildNodes[2].InnerText, xxn.ChildNodes[3].InnerText, xxn.ChildNodes[4].InnerText, xxn.ChildNodes[5].InnerText ,xxn.ChildNodes[6].InnerText };
                 storeFur stf = new storeFur(str);
+                
                 al.Add(stf);
             }
             return al;
@@ -282,7 +285,7 @@ namespace PuTianCheng
             {
                 if (xxn.Attributes[0].Value.ToString() == str_single)
                 {
-                    string[] str = { xxn.ChildNodes[0].InnerText, xxn.ChildNodes[1].InnerText, xxn.ChildNodes[2].InnerText, xxn.ChildNodes[3].InnerText, xxn.ChildNodes[4].InnerText, xxn.ChildNodes[5].InnerText };
+                    string[] str = { xxn.ChildNodes[0].InnerText, xxn.ChildNodes[1].InnerText, xxn.ChildNodes[2].InnerText, xxn.ChildNodes[3].InnerText, xxn.ChildNodes[4].InnerText, xxn.ChildNodes[5].InnerText ,xxn.ChildNodes[6].InnerText};
                     stf.SetV(str);
                 }
             
@@ -308,7 +311,109 @@ namespace PuTianCheng
             }
             xd.Save(xmlFilePath);
         }
-      
+        
+        public void hebingSingleNode(string xmlFilePath, string rootNodeName, storeFur stf)//仅仅用于库存xml
+        {
+            //搜索有无相同节点
+            int alreadyHave = 0;
+            XmlDocument xd = new XmlDocument();
+            xd.Load(xmlFilePath);
+            XmlNode xn = xd.SelectSingleNode(rootNodeName);
+            XmlNodeList xl = xn.ChildNodes;
+            foreach (XmlNode xxn in xl)
+            {
+                if ((xxn.ChildNodes[0].InnerText == stf.variety) && (xxn.ChildNodes[1].InnerText == stf.number))//如已经存在记录
+                {
+                    xxn.ChildNodes[2].InnerText = Convert.ToString((float.Parse(stf.inprice)*(float)stf.shumu
+                        + float.Parse(xxn.ChildNodes[2].InnerText)* float.Parse(xxn.ChildNodes[6].InnerText))
+                        /((float)stf.shumu+ float.Parse(xxn.ChildNodes[6].InnerText)));//平均进价
+                    xxn.ChildNodes[3].InnerText = stf.onprice;//标价
+                    xxn.ChildNodes[6].InnerText = Convert.ToString((float)stf.shumu + float.Parse(xxn.ChildNodes[6].InnerText));//数目
+                    alreadyHave = 1;
+                    break;
+                }        
+            }
+            if (alreadyHave == 0)//如没有同类型记录，则添加一个项目
+            {
+                XmlNode memberlist = xd.SelectSingleNode(rootNodeName);
+                XmlElement element = xd.CreateElement("furniture");
+                element.SetAttribute("date", stf.date);
+                XmlNode subnode = memberlist.AppendChild(element);
+
+                element = xd.CreateElement("variety");
+                element.InnerText = stf.variety;
+                subnode.AppendChild(element);
+
+                element = xd.CreateElement("number");
+                element.InnerText = stf.number;
+                subnode.AppendChild(element);
+
+                element = xd.CreateElement("inprice");
+                element.InnerText = stf.inprice;
+                subnode.AppendChild(element);
+
+                element = xd.CreateElement("onprice");
+                element.InnerText = stf.onprice;
+                subnode.AppendChild(element);
+
+                element = xd.CreateElement("outprice");
+                element.InnerText = stf.outprice;
+                subnode.AppendChild(element);
+
+                element = xd.CreateElement("date");
+                element.InnerText = stf.date;
+                subnode.AppendChild(element);
+
+                element = xd.CreateElement("shumu");
+                element.InnerText = Convert.ToString(stf.shumu);
+                subnode.AppendChild(element);
+            }
+            xd.Save(xmlFilePath);
+        }
+
+        public string fenliSingleNode(string xmlFilePath, string rootNodeName, storeFur stf)
+        {
+            //搜索有无相同节点
+            int alreadyHave = 0;
+            XmlDocument xd = new XmlDocument();
+            xd.Load(xmlFilePath);
+            XmlNode xn = xd.SelectSingleNode(rootNodeName);
+            XmlNodeList xl = xn.ChildNodes;
+            foreach (XmlNode xxn in xl)
+            {
+                if ((xxn.ChildNodes[0].InnerText == stf.variety) && (xxn.ChildNodes[1].InnerText == stf.number))//如已经存在记录
+                {
+                    alreadyHave = 1;
+                    int temperDX = int.Parse(xxn.ChildNodes[6].InnerText) - stf.shumu;
+                    if (temperDX > 0)
+                    {
+                        stf.shumu = temperDX;
+                        updateSingleNode(xmlFilePath, "store", xxn.ChildNodes[5].InnerText, stf);
+                        return Convert.ToString(temperDX);
+                    }
+                    else if (temperDX == 0)
+                    {
+                        stf.shumu = temperDX;
+                        updateSingleNode(xmlFilePath, "store", xxn.ChildNodes[5].InnerText, stf);
+                        deleteSingleNode(xmlFilePath, "store", xxn.ChildNodes[5].InnerText);
+                        return "succeedbut0";
+                    }
+                    else
+                    {
+                        return "fail<";
+                    }
+                }    
+            }
+            if (alreadyHave == 0)
+            {
+                return "failNo";
+            }
+            else
+            {
+                return "";
+            }
+
+        }
         /// <summary>
         //更新某一节点
         /// </summary>
@@ -713,17 +818,19 @@ namespace PuTianCheng
     {
         public
             string variety, number, inprice, onprice, outprice, date;
+        public int shumu;//数目
         public
         storeFur(string[] value)
         {
-            if (value.Length == 6)
+            if (value.Length == 7)
             {
                 variety = value[0];
                 number = value[1];
                 inprice = value[2];
                 onprice = value[3];
                 outprice = value[4];
-                date = value[5];               
+                date = value[5];
+                shumu = int.Parse(value[6]);
             }
             
         }
@@ -734,20 +841,21 @@ namespace PuTianCheng
         public
             string[] GetV()
         {
-            string[] value = new string[6];
+            string[] value = new string[7];
             value[0] = variety;
             value[1] = number;
             value[2] = inprice;
             value[3] = onprice;
             value[4] = outprice;
             value[5] = date;
+            value[6] = Convert.ToString(shumu);
             return value;
 
         }
         public
         bool SetV(string[] value)
         {
-            if (value.Length == 6)
+            if (value.Length == 7)
             {
                 variety = value[0];
                 number = value[1];
@@ -755,10 +863,33 @@ namespace PuTianCheng
                 onprice = value[3];
                 outprice = value[4];
                 date = value[5];
+                shumu = int.Parse(value[6]);
                 return true;
             }
             else
             return false;
+        }
+
+        public string num2Date()//必须是数字
+        {
+
+            string zifu = "";
+            try
+            {
+                string year = date.Substring(0, 4);
+                string month = date.Substring(4, 2);
+                string day = date.Substring(6, 2);
+                string hour = date.Substring(8,2);
+                string minute = date.Substring(10,2);
+
+                zifu = year + "年" + month + "月" + day + "日" + hour + "时" + minute + "分";
+            }
+            catch
+            {
+            }
+            
+            return zifu;
+            
         }
     }
 

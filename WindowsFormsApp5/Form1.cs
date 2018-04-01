@@ -17,7 +17,7 @@ namespace WindowsFormsApp5
     {
         XmlHelper xh;
         cmdXML cx;
-        int form4_back;
+       
         public Form1()
         {
             InitializeComponent();
@@ -35,7 +35,9 @@ namespace WindowsFormsApp5
             this.dataGridView1.Columns.Add(@"inprice", @"进价");
             this.dataGridView1.Columns.Add(@"onprice", @"货场标价");
             this.dataGridView1.Columns.Add(@"outprice", @"实际出货价");
-            this.dataGridView1.Columns.Add(@"date",@"日期");
+            this.dataGridView1.Columns.Add(@"id",@"存储编号");
+            this.dataGridView1.Columns.Add(@"date", @"日期");
+            this.dataGridView1.Columns.Add(@"shumu", @"数目");
             //不允许用户编辑datagridview中的数据
             this.dataGridView1.ReadOnly = true;
 
@@ -49,9 +51,22 @@ namespace WindowsFormsApp5
    
         private void Form1_Load(object sender, EventArgs e)
         {
+            //dialog最大化
+            this.WindowState = FormWindowState.Maximized;
             //datagridview自适应
             dataGridView1.AutoResizeColumns();
-            
+            //datagridview字体调大
+            //用vs可视化界面
+            //button 隐藏
+            button1.Visible = false;
+            button2.Visible = false;
+            button3.Visible = false;
+            button4.Visible = false;
+            button5.Visible = false;
+            button6.Visible = false;
+
+            button1.Visible = false;
+            button1.Visible = false;
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -67,7 +82,7 @@ namespace WindowsFormsApp5
                 {
                     if (dataGridView1.SelectedRows[0].Cells[5].Value != null)
                     {
-                        string[] str_ss = { dataGridView1.SelectedRows[i].Cells[0].Value.ToString(), dataGridView1.SelectedRows[i].Cells[1].Value.ToString(), dataGridView1.SelectedRows[i].Cells[2].Value.ToString(), dataGridView1.SelectedRows[i].Cells[3].Value.ToString(), dataGridView1.SelectedRows[i].Cells[4].Value.ToString(), dataGridView1.SelectedRows[i].Cells[5].Value.ToString() };
+                        string[] str_ss = { dataGridView1.SelectedRows[i].Cells[0].Value.ToString(), dataGridView1.SelectedRows[i].Cells[1].Value.ToString(), dataGridView1.SelectedRows[i].Cells[2].Value.ToString(), dataGridView1.SelectedRows[i].Cells[3].Value.ToString(), dataGridView1.SelectedRows[i].Cells[4].Value.ToString(), dataGridView1.SelectedRows[i].Cells[5].Value.ToString(), dataGridView1.SelectedRows[i].Cells[7].Value.ToString() };
                         Form5 myform = new Form5();
                         myform.stf = new storeFur(str_ss);
                         myform.ShowDialog(this);
@@ -100,9 +115,26 @@ namespace WindowsFormsApp5
                     dataGridView1.Rows[i].Cells[3].Value = stf1.onprice;
                     dataGridView1.Rows[i].Cells[4].Value = stf1.outprice;
                     dataGridView1.Rows[i].Cells[5].Value = stf1.date;
+                    dataGridView1.Rows[i].Cells[6].Value = stf1.num2Date();
+                    dataGridView1.Rows[i].Cells[7].Value = Convert.ToString(stf1.shumu);
+                        
                 }
             }
-
+            switch(xmlName)
+            {
+                case "mainStore.xml":
+                    label1.Text = "库存状况";
+                    break;
+                case "jinHuo.xml":
+                    label1.Text = "进货记录";
+                    break;
+                case "chuHuo.xml":
+                    label1.Text = "出货记录";
+                    break;
+                case "chaXun.xml":
+                    label1.Text = "查询结果";
+                    break;
+            }
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -132,9 +164,10 @@ namespace WindowsFormsApp5
                 {
                     if (dataGridView1.SelectedRows[0].Cells[5].Value != null)
                     {
-                        string[] str_ss= { dataGridView1.SelectedRows[i].Cells[0].Value.ToString(), dataGridView1.SelectedRows[i].Cells[1].Value.ToString(), dataGridView1.SelectedRows[i].Cells[2].Value.ToString(), dataGridView1.SelectedRows[i].Cells[3].Value.ToString(), dataGridView1.SelectedRows[i].Cells[4].Value.ToString(), dataGridView1.SelectedRows[i].Cells[5].Value.ToString() };
+                        string[] str_ss= { dataGridView1.SelectedRows[i].Cells[0].Value.ToString(), dataGridView1.SelectedRows[i].Cells[1].Value.ToString(), dataGridView1.SelectedRows[i].Cells[2].Value.ToString(), dataGridView1.SelectedRows[i].Cells[3].Value.ToString(), dataGridView1.SelectedRows[i].Cells[4].Value.ToString(), dataGridView1.SelectedRows[i].Cells[5].Value.ToString(),dataGridView1.SelectedRows[i].Cells[7].Value.ToString() };
                         Form3 myform = new Form3();
                         myform.stf = new storeFur(str_ss);
+                        myform.targetXML = label1.Text;
                         myform.ShowDialog(this);
                        
                     }
@@ -209,6 +242,41 @@ namespace WindowsFormsApp5
         {
             dataGridView1.Rows.Clear();
             MessageBox.Show("无匹配结果");
+        }
+
+        private void 显示ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void 进出货操作ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            button4_Click(sender, e);
+        }
+
+        private void 出货ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            button1_Click(sender, e);
+        }
+
+        private void 更改ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            button5_Click(sender, e);
+        }
+
+        private void 查询ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            button2_Click(sender, e);
+        }
+
+        private void 导入txtToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            button3_Click(sender, e);
+        }
+
+        private void 导出txtToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            button6_Click(sender, e);
         }
     }
 }

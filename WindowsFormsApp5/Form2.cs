@@ -37,20 +37,34 @@ namespace WindowsFormsApp5
             {
                 float.Parse(textBox3.Text);
                 float.Parse(textBox4.Text);
+                
             }
             catch
             {
                 MessageBox.Show("价格必须是一个数字");
                 return;
             }
+
+            try
+            {
+                int.Parse(textBox6.Text);
+            }
+            catch
+            {
+                MessageBox.Show("数目必须是个整数");
+                return;
+            }
             //将添加的值加入库存xml中
-            string[] str1 = {textBox1.Text,textBox2.Text,textBox3.Text,textBox4.Text,textBox5.Text,System.DateTime.Now.ToString("yyyyMMddHHmmssfff") };            
+            string[] str1 = {textBox1.Text,textBox2.Text,textBox3.Text,textBox4.Text,textBox5.Text,System.DateTime.Now.ToString("yyyyMMddHHmmssfff"), Convert.ToString(textBox6.Text) };            
             storeFur stf = new storeFur(str1);
+            
+                
             cmdXML cx = new cmdXML();
-            cx.AddFurElement("mainStore.xml",stf, "store");
+           
             //进货记录添加
             cx.AddFurElement("jinHuo.xml",stf,"inhere");
-
+            //库存状况更新
+            cx.hebingSingleNode("mainStore.xml","store",stf);
             //告诉主对话框刷新datagridview
             Form1 fm1 = (Form1)this.Owner;
             fm1.formRefresh("mainStore.xml", "store");

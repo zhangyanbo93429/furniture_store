@@ -1,3 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <store>
+  <furniture date="20180401144157913">
+    <variety>红木</variety>
+    <number>a1</number>
+    <inprice>12</inprice>
+    <onprice>13</onprice>
+    <outprice>不可用</outprice>
+    <date>20180401144157913</date>
+    <shumu>6</shumu>
+  </furniture>
 </store>

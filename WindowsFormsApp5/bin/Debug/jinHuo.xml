@@ -1,11 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <inhere>
-  <furniture date="20180331210420495">
-    <variety>品种1</variety>
-    <number>型号1</number>
+  <furniture date="20180401144157913">
+    <variety>红木</variety>
+    <number>a1</number>
     <inprice>12</inprice>
-    <onprice>15</onprice>
+    <onprice>13</onprice>
     <outprice>不可用</outprice>
-    <date>20180331210420495</date>
+    <date>20180401144157913</date>
+    <shumu>6</shumu>
+  </furniture>
+  <furniture date="20180401144215854">
+    <variety>柳木</variety>
+    <number>a1</number>
+    <inprice>15</inprice>
+    <onprice>16</onprice>
+    <outprice>不可用</outprice>
+    <date>20180401144215854</date>
+    <shumu>12</shumu>
   </furniture>
 </inhere>

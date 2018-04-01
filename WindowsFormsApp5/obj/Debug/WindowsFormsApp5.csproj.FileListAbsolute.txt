@@ -24,3 +24,4 @@ C:\Users\Administrator\Desktop\WindowsFormsApp5\WindowsFormsApp5\obj\Debug\Inter
 C:\Users\Administrator\Desktop\WindowsFormsApp5\WindowsFormsApp5\obj\Debug\WindowsFormsApp5.csproj.ResolveComReference.cache
 C:\Users\Administrator\Desktop\WindowsFormsApp5\WindowsFormsApp5\obj\Debug\WindowsFormsApp5.Form4.resources
 C:\Users\Administrator\Desktop\WindowsFormsApp5\WindowsFormsApp5\obj\Debug\WindowsFormsApp5.Form5.resources
+C:\Users\Administrator\Desktop\WindowsFormsApp5\WindowsFormsApp5\obj\Debug\WindowsFormsApp5.csprojResolveAssemblyReference.cache
