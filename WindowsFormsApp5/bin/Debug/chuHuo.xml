@@ -1,21 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <outhere>
-  <furniture date="20180401203250783">
-    <variety>柳木</variety>
-    <number>b23</number>
-    <inprice>1700</inprice>
-    <onprice>2000</onprice>
-    <outprice>1900</outprice>
-    <date>20180401203250783</date>
-    <shumu>15</shumu>
-  </furniture>
-  <furniture date="20180401203250783">
-    <variety>柳木</variety>
-    <number>b23</number>
-    <inprice>1700</inprice>
-    <onprice>2000</onprice>
-    <outprice>1900</outprice>
-    <date>20180401203250783</date>
-    <shumu>5</shumu>
+  <furniture date="20180402153136417">
+    <variety>桐木</variety>
+    <number>b1000</number>
+    <inprice>130</inprice>
+    <onprice>230</onprice>
+    <outprice>200</outprice>
+    <date>20180402153136417</date>
+    <shumu>1</shumu>
   </furniture>
 </outhere>

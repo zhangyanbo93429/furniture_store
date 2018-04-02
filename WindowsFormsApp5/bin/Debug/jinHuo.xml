@@ -1,21 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <inhere>
-  <furniture date="20180401203123132">
-    <variety>红木</variety>
-    <number>a12</number>
-    <inprice>1500</inprice>
-    <onprice>1700</onprice>
-    <outprice>不可用</outprice>
-    <date>20180401203123132</date>
-    <shumu>1600</shumu>
-  </furniture>
-  <furniture date="20180401203250783">
+  <furniture date="20180402153019351">
     <variety>柳木</variety>
-    <number>b23</number>
-    <inprice>1700</inprice>
-    <onprice>2000</onprice>
+    <number>柳木1</number>
+    <inprice>160</inprice>
+    <onprice>260</onprice>
     <outprice>不可用</outprice>
-    <date>20180401203250783</date>
-    <shumu>20</shumu>
+    <date>20180402153019351</date>
+    <shumu>5</shumu>
+  </furniture>
+  <furniture date="20180402153136417">
+    <variety>桐木</variety>
+    <number>b1000</number>
+    <inprice>130</inprice>
+    <onprice>230</onprice>
+    <outprice>不可用</outprice>
+    <date>20180402153136417</date>
+    <shumu>2</shumu>
   </furniture>
 </inhere>

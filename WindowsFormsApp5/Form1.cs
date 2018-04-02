@@ -98,7 +98,8 @@ namespace WindowsFormsApp5
         //将数据库中的数据刷新到datagridview上
         public void formRefresh(string xmlName,string rootName)
         {
-            
+            //总成本、利润及库存
+            double totalin,totalout,totalon1,totalon2;
             //通过mainstore.xml刷新datagridview的值
             ArrayList al = cx.searchAllNode(xmlName, rootName);
            
@@ -106,10 +107,10 @@ namespace WindowsFormsApp5
             if (al.Count > 0)
             {
                 dataGridView1.Rows.Add(al.Count);
-                for (int i = al.Count-1; i >=0; i--)
+                for (int i = al.Count - 1; i >= 0; i--)
                 {
                     storeFur stf1 = new storeFur();
-                    stf1 = al[i] as storeFur;
+                    stf1 = al[al.Count-1-i] as storeFur;
                     dataGridView1.Rows[i].Cells[0].Value = stf1.variety;
                     dataGridView1.Rows[i].Cells[1].Value = stf1.number;
                     dataGridView1.Rows[i].Cells[2].Value = stf1.inprice;
@@ -118,23 +119,49 @@ namespace WindowsFormsApp5
                     dataGridView1.Rows[i].Cells[5].Value = stf1.date;
                     dataGridView1.Rows[i].Cells[6].Value = stf1.num2Date();
                     dataGridView1.Rows[i].Cells[7].Value = Convert.ToString(stf1.shumu);
-                        
+                   
+                    
                 }
-            }
-            switch(xmlName)
-            {
-                case "mainStore.xml":
-                    label1.Text = "库存状况";
-                    break;
-                case "jinHuo.xml":
-                    label1.Text = "进货记录";
-                    break;
-                case "chuHuo.xml":
-                    label1.Text = "出货记录";
-                    break;
-                case "chaXun.xml":
-                    label1.Text = "查询结果";
-                    break;
+                
+                switch (xmlName)
+                {
+                    case "mainStore.xml":
+                        label1.Text = "库存状况";
+                        //标价总额
+                        totalon1 = 0;
+                        totalon2 = 0;
+                        for (int i1 = 0; i1 < al.Count; i1++)
+                        {
+                            totalon1 += double.Parse(dataGridView1.Rows[i1].Cells[2].Value.ToString()) * double.Parse(dataGridView1.Rows[i1].Cells[7].Value.ToString());
+                            totalon2 += double.Parse(dataGridView1.Rows[i1].Cells[3].Value.ToString()) * double.Parse(dataGridView1.Rows[i1].Cells[7].Value.ToString());
+                        }
+                        label2.Text = "当前货场投入成本:" + totalon1 + "； 货场总标价" + totalon2;
+                        break;
+                    case "jinHuo.xml":
+                        label1.Text = "进货记录";
+                        //进货总成本
+                        totalin = 0;
+                        for (int i1 = 0; i1 < al.Count; i1++)
+                        {
+                            totalin += double.Parse(dataGridView1.Rows[i1].Cells[2].Value.ToString()) * double.Parse(dataGridView1.Rows[i1].Cells[7].Value.ToString());
+                        }
+                        label2.Text = "进货总成本:" + totalin;
+
+                        break;
+                    case "chuHuo.xml":
+                        label1.Text = "出货记录";
+                        //总营业额
+                        totalout = 0;
+                        for (int i1 = 0; i1 < al.Count; i1++)
+                        {
+                            totalout += double.Parse(dataGridView1.Rows[i1].Cells[4].Value.ToString()) * double.Parse(dataGridView1.Rows[i1].Cells[7].Value.ToString());
+                        }
+                        label2.Text = "总营业额:" + totalout;
+                        break;
+                    case "chaXun.xml":
+                        label1.Text = "查询结果";
+                        break;
+                }
             }
         }
 
@@ -192,27 +219,31 @@ namespace WindowsFormsApp5
             sfd.DefaultExt = "txt";
             sfd.ShowDialog();   
             string str1 = sfd.FileName;
-
-            //利用FileWriter写入txt
-            FileStream fs = new FileStream(str1, FileMode.OpenOrCreate);
-            StreamWriter sw = new StreamWriter(fs);
-
-            ArrayList al = cx.searchAllNode("mainStore.xml", "store");
-
-            
-            if (al.Count > 0)
+            if (str1 != "")
             {
-                
-                for (int i = 0; i < al.Count; i++)
+                //利用FileWriter写入txt
+                FileStream fs = new FileStream(str1, FileMode.OpenOrCreate);
+                StreamWriter sw = new StreamWriter(fs);
+
+                ArrayList al = cx.searchAllNode("mainStore.xml", "store");
+
+
+                if (al.Count > 0)
                 {
-                    storeFur stf1 = new storeFur();
-                    stf1 = al[i] as storeFur;
-                    stf1.ziBuqi();
-                    sw.WriteLine(stf1.variety+stf1.number+stf1.inprice+stf1.onprice+stf1.outprice+stf1.date+" "+stf1.shumu);
-                 
+
+                    for (int i = 0; i < al.Count; i++)
+                    {
+                        storeFur stf1 = new storeFur();
+                        stf1 = al[i] as storeFur;
+                        stf1.ziBuqi();
+                        sw.WriteLine(stf1.variety + stf1.number + stf1.inprice + stf1.onprice + stf1.outprice + stf1.date + " " + stf1.shumu);
+
+                    }
                 }
+
+                sw.Close();
             }
-            sw.Close();
+            
          }
 
         private void button2_Click(object sender, EventArgs e)
@@ -290,27 +321,29 @@ namespace WindowsFormsApp5
             sfd.DefaultExt = "txt";
             sfd.ShowDialog();
             string str1 = sfd.FileName;
-
-            //利用FileWriter写入txt
-            FileStream fs = new FileStream(str1, FileMode.OpenOrCreate);
-            StreamWriter sw = new StreamWriter(fs);
-
-            ArrayList al = cx.searchAllNode("jinHuo.xml", "inhere");
-
-
-            if (al.Count > 0)
+            if (str1 != "")
             {
+                //利用FileWriter写入txt
+                FileStream fs = new FileStream(str1, FileMode.OpenOrCreate);
+                StreamWriter sw = new StreamWriter(fs);
 
-                for (int i = 0; i < al.Count; i++)
+                ArrayList al = cx.searchAllNode("jinHuo.xml", "inhere");
+
+
+                if (al.Count > 0)
                 {
-                    storeFur stf1 = new storeFur();
-                    stf1 = al[i] as storeFur;
-                    stf1.ziBuqi();
-                    sw.WriteLine(stf1.variety + stf1.number + stf1.inprice + stf1.onprice + stf1.outprice + stf1.date + " " + stf1.shumu);
 
+                    for (int i = 0; i < al.Count; i++)
+                    {
+                        storeFur stf1 = new storeFur();
+                        stf1 = al[i] as storeFur;
+                        stf1.ziBuqi();
+                        sw.WriteLine(stf1.variety + stf1.number + stf1.inprice + stf1.onprice + stf1.outprice + stf1.date + " " + stf1.shumu);
+
+                    }
                 }
+                sw.Close();
             }
-            sw.Close();
         }
 
         private void 导出txt出货状况ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -321,27 +354,29 @@ namespace WindowsFormsApp5
             sfd.DefaultExt = "txt";
             sfd.ShowDialog();
             string str1 = sfd.FileName;
-
-            //利用FileWriter写入txt
-            FileStream fs = new FileStream(str1, FileMode.OpenOrCreate);
-            StreamWriter sw = new StreamWriter(fs);
-
-            ArrayList al = cx.searchAllNode("chuHuo.xml", "outhere");
-
-
-            if (al.Count > 0)
+            if (str1 != "")
             {
+                //利用FileWriter写入txt
+                FileStream fs = new FileStream(str1, FileMode.OpenOrCreate);
+                StreamWriter sw = new StreamWriter(fs);
 
-                for (int i = 0; i < al.Count; i++)
+                ArrayList al = cx.searchAllNode("chuHuo.xml", "outhere");
+
+
+                if (al.Count > 0)
                 {
-                    storeFur stf1 = new storeFur();
-                    stf1 = al[i] as storeFur;
-                    stf1.ziBuqi();
-                    sw.WriteLine(stf1.variety + stf1.number + stf1.inprice + stf1.onprice + stf1.outprice + stf1.date + " " + stf1.shumu);
 
+                    for (int i = 0; i < al.Count; i++)
+                    {
+                        storeFur stf1 = new storeFur();
+                        stf1 = al[i] as storeFur;
+                        stf1.ziBuqi();
+                        sw.WriteLine(stf1.variety + stf1.number + stf1.inprice + stf1.onprice + stf1.outprice + stf1.date + " " + stf1.shumu);
+
+                    }
                 }
+                sw.Close();
             }
-            sw.Close();
         }
     }
 }

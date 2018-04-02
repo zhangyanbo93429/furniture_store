@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.button1 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
@@ -47,10 +47,11 @@
             this.更改ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.查询ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.导出txtToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.利润情况ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.label1 = new System.Windows.Forms.Label();
             this.进货状况导出txtToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.导出txt出货状况ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.利润情况ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -62,10 +63,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(32, 55);
+            this.dataGridView1.Location = new System.Drawing.Point(42, 150);
             this.dataGridView1.Name = "dataGridView1";
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.RowTemplate.Height = 23;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(1219, 307);
@@ -226,21 +227,6 @@
             this.导出txtToolStripMenuItem.Text = "导出txt（库存状况）";
             this.导出txtToolStripMenuItem.Click += new System.EventHandler(this.导出txtToolStripMenuItem_Click);
             // 
-            // 利润情况ToolStripMenuItem
-            // 
-            this.利润情况ToolStripMenuItem.Name = "利润情况ToolStripMenuItem";
-            this.利润情况ToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
-            this.利润情况ToolStripMenuItem.Text = "利润情况";
-            // 
-            // label1
-            // 
-            this.label1.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label1.Location = new System.Drawing.Point(509, 25);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(284, 23);
-            this.label1.TabIndex = 12;
-            this.label1.Text = "label1";
-            // 
             // 进货状况导出txtToolStripMenuItem
             // 
             this.进货状况导出txtToolStripMenuItem.Name = "进货状况导出txtToolStripMenuItem";
@@ -255,11 +241,37 @@
             this.导出txt出货状况ToolStripMenuItem.Text = "导出txt（出货状况）";
             this.导出txt出货状况ToolStripMenuItem.Click += new System.EventHandler(this.导出txt出货状况ToolStripMenuItem_Click);
             // 
+            // 利润情况ToolStripMenuItem
+            // 
+            this.利润情况ToolStripMenuItem.Name = "利润情况ToolStripMenuItem";
+            this.利润情况ToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
+            this.利润情况ToolStripMenuItem.Text = "利润情况";
+            // 
+            // label1
+            // 
+            this.label1.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label1.Location = new System.Drawing.Point(563, 25);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(284, 23);
+            this.label1.TabIndex = 12;
+            this.label1.Text = "label1";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label2.Location = new System.Drawing.Point(40, 63);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(69, 19);
+            this.label2.TabIndex = 13;
+            this.label2.Text = "label2";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1291, 524);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.button3);
@@ -306,6 +318,7 @@
         private System.Windows.Forms.ToolStripMenuItem 导出txtToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 进货状况导出txtToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 导出txt出货状况ToolStripMenuItem;
+        private System.Windows.Forms.Label label2;
     }
 }
 
