@@ -23,6 +23,7 @@ namespace WindowsFormsApp5
         {
             textBox5.Text = "不可用";
             textBox5.ReadOnly = true;
+            
         }
 
         private void button1_Click(object sender, EventArgs e)

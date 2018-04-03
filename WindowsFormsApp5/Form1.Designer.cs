@@ -49,7 +49,6 @@
             this.导出txtToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.进货状况导出txtToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.导出txt出货状况ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.利润情况ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -63,7 +62,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(42, 150);
+            this.dataGridView1.Location = new System.Drawing.Point(44, 115);
             this.dataGridView1.Name = "dataGridView1";
             dataGridViewCellStyle1.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle1;
@@ -137,8 +136,7 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.显示ToolStripMenuItem,
-            this.使用帮助ToolStripMenuItem,
-            this.利润情况ToolStripMenuItem});
+            this.使用帮助ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1291, 25);
@@ -159,21 +157,21 @@
             // 当前库存ToolStripMenuItem
             // 
             this.当前库存ToolStripMenuItem.Name = "当前库存ToolStripMenuItem";
-            this.当前库存ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.当前库存ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.当前库存ToolStripMenuItem.Text = "当前库存";
             this.当前库存ToolStripMenuItem.Click += new System.EventHandler(this.当前库存ToolStripMenuItem_Click);
             // 
             // 进货记录ToolStripMenuItem
             // 
             this.进货记录ToolStripMenuItem.Name = "进货记录ToolStripMenuItem";
-            this.进货记录ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.进货记录ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.进货记录ToolStripMenuItem.Text = "进货记录";
             this.进货记录ToolStripMenuItem.Click += new System.EventHandler(this.进货记录ToolStripMenuItem_Click);
             // 
             // 出货记录ToolStripMenuItem
             // 
             this.出货记录ToolStripMenuItem.Name = "出货记录ToolStripMenuItem";
-            this.出货记录ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.出货记录ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.出货记录ToolStripMenuItem.Text = "出货记录";
             this.出货记录ToolStripMenuItem.Click += new System.EventHandler(this.出货记录ToolStripMenuItem_Click);
             // 
@@ -241,12 +239,6 @@
             this.导出txt出货状况ToolStripMenuItem.Text = "导出txt（出货状况）";
             this.导出txt出货状况ToolStripMenuItem.Click += new System.EventHandler(this.导出txt出货状况ToolStripMenuItem_Click);
             // 
-            // 利润情况ToolStripMenuItem
-            // 
-            this.利润情况ToolStripMenuItem.Name = "利润情况ToolStripMenuItem";
-            this.利润情况ToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
-            this.利润情况ToolStripMenuItem.Text = "利润情况";
-            // 
             // label1
             // 
             this.label1.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -283,7 +275,7 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "家具卖场管理";
             this.Activated += new System.EventHandler(this.Form1_Activated);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
@@ -309,7 +301,6 @@
         private System.Windows.Forms.ToolStripMenuItem 进货记录ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 出货记录ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 使用帮助ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 利润情况ToolStripMenuItem;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ToolStripMenuItem 进出货操作ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 出货ToolStripMenuItem;

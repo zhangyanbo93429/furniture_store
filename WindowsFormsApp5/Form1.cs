@@ -87,7 +87,6 @@ namespace WindowsFormsApp5
                         Form5 myform = new Form5();
                         myform.stf = new storeFur(str_ss);
                         myform.ShowDialog(this);
-
                     }
                 }
             }
@@ -217,6 +216,7 @@ namespace WindowsFormsApp5
             SaveFileDialog sfd = new SaveFileDialog();
             sfd.Filter = "报表类型|*.txt";
             sfd.DefaultExt = "txt";
+            sfd.Title = label1.Text;
             sfd.ShowDialog();   
             string str1 = sfd.FileName;
             if (str1 != "")
@@ -226,21 +226,17 @@ namespace WindowsFormsApp5
                 StreamWriter sw = new StreamWriter(fs);
 
                 ArrayList al = cx.searchAllNode("mainStore.xml", "store");
-
-
                 if (al.Count > 0)
                 {
-
+                    sw.WriteLine("品种".PadRight(8)+ "型号".PadRight(8)+ "进价".PadRight(8)+ "标价".PadRight(8)+ "出货价".PadRight(8)+ "编号".PadRight(8)+ "数目".PadRight(8));
                     for (int i = 0; i < al.Count; i++)
                     {
                         storeFur stf1 = new storeFur();
                         stf1 = al[i] as storeFur;
                         stf1.ziBuqi();
                         sw.WriteLine(stf1.variety + stf1.number + stf1.inprice + stf1.onprice + stf1.outprice + stf1.date + " " + stf1.shumu);
-
                     }
                 }
-
                 sw.Close();
             }
             
@@ -319,6 +315,7 @@ namespace WindowsFormsApp5
             SaveFileDialog sfd = new SaveFileDialog();
             sfd.Filter = "报表类型|*.txt";
             sfd.DefaultExt = "txt";
+            sfd.Title = label1.Text;
             sfd.ShowDialog();
             string str1 = sfd.FileName;
             if (str1 != "")
@@ -332,7 +329,7 @@ namespace WindowsFormsApp5
 
                 if (al.Count > 0)
                 {
-
+                    sw.WriteLine("品种".PadRight(8)+ "型号".PadRight(8)+ "进价".PadRight(8)+ "标价".PadRight(8)+ "出货价".PadRight(8)+ "编号".PadRight(8)+ "数目".PadRight(8));
                     for (int i = 0; i < al.Count; i++)
                     {
                         storeFur stf1 = new storeFur();
@@ -350,6 +347,7 @@ namespace WindowsFormsApp5
         {
             //选择导出文件路径及名称
             SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Title = label1.Text;
             sfd.Filter = "报表类型|*.txt";
             sfd.DefaultExt = "txt";
             sfd.ShowDialog();
@@ -365,7 +363,7 @@ namespace WindowsFormsApp5
 
                 if (al.Count > 0)
                 {
-
+                    sw.WriteLine("品种".PadRight(8)+ "型号".PadRight(8)+ "进价".PadRight(8)+ "标价".PadRight(8)+ "出货价".PadRight(8)+ "编号".PadRight(8)+ "数目".PadRight(8));
                     for (int i = 0; i < al.Count; i++)
                     {
                         storeFur stf1 = new storeFur();
@@ -377,6 +375,11 @@ namespace WindowsFormsApp5
                 }
                 sw.Close();
             }
+        }
+
+        private void 利润情况ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

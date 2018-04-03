@@ -18,4 +18,13 @@
     <date>20180402153136417</date>
     <shumu>2</shumu>
   </furniture>
+  <furniture date="20180403231427393">
+    <variety>品种3</variety>
+    <number>型号3</number>
+    <inprice>1200</inprice>
+    <onprice>1500</onprice>
+    <outprice>不可用</outprice>
+    <date>20180403231427393</date>
+    <shumu>7</shumu>
+  </furniture>
 </inhere>
